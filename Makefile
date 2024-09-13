@@ -61,3 +61,15 @@ clean_venv:
 .PHONY: clean
 clean:
 	rm -rf $(PYTHON_SRC_DIR) $(PYTHON_TGT_DIR)
+
+# Function for starting scripts.
+define run_script
+	if [ "$(RUNNER)" = "python" ]; then \
+		$(2) $(1).py; \
+	elif [ "$(RUNNER)" = "bash" ]; then \
+		bash $(1).sh; \
+	else \
+		echo "Unsupported runner: $(RUNNER)"; \
+		exit 1; \
+	fi
+endef
